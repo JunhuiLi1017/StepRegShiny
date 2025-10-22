@@ -31,7 +31,7 @@ devtools::install_github("JunhuiLi1017/StepReg")
 library(StepRegShiny)
 
 # Launch the Shiny application
-StepRegShinyApp()
+StepRegGUI()
 ```
 
 ## Dependencies

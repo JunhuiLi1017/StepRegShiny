@@ -1,4 +1,4 @@
-#' Launch StepReg Shiny Application
+#' Launch StepReg GUI
 #'
 #' Launches an interactive Shiny application for performing stepwise regression analysis.
 #' The application provides a user-friendly interface for data analysis, model selection,
@@ -42,8 +42,8 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Launch the StepReg Shiny application
-#' StepRegShinyApp()
+#' # Launch the StepReg GUI
+#' StepRegGUI()
 #' }
 #'
 #' @seealso \code{\link[StepReg]{stepwise}} for the core stepwise regression function
@@ -54,6 +54,6 @@
 #' 
 #' @export
 #'
-StepRegShinyApp <- function() {
+StepRegGUI <- function() {
   shinyApp(ui = ui(), server = server)
 }

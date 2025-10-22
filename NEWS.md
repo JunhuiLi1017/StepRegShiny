@@ -15,9 +15,9 @@
 
 ### Migration from StepReg
 
-This package contains the Shiny application components that were previously part of the main StepReg package. Users who were using the `StepRegShinyApp()` function from StepReg should now install and use this separate package.
+This package contains the Shiny application components that were previously part of the main StepReg package. Users who were using the `StepRegGUI()` function from StepReg should now install and use this separate package.
 
 **Migration steps:**
 1. Install StepRegShiny: `install.packages("StepRegShiny")`
-2. Use the new function: `StepRegShiny::StepRegShinyApp()`
+2. Use the new function: `StepRegShiny::StepRegGUI()`
 3. The original StepReg package no longer includes Shiny components
