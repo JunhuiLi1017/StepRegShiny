@@ -1,0 +1,49 @@
+#' StepRegShiny: Shiny Application for StepReg Package
+#'
+#' A Shiny application package that provides an interactive web interface for the StepReg package. 
+#' This package contains the Shiny application components that were previously part of the main 
+#' StepReg package, allowing for better separation of concerns and independent development of 
+#' the web interface.
+#'
+#' @details
+#' The StepRegShiny package provides a comprehensive web-based interface for performing 
+#' stepwise regression analysis. It includes:
+#' 
+#' \itemize{
+#'   \item Interactive data upload and preparation tools
+#'   \item Support for multiple regression types (linear, logistic, Cox, Poisson, Gamma, negative binomial)
+#'   \item Multiple stepwise selection strategies (forward, backward, bidirectional, subset)
+#'   \item Comprehensive visualization tools
+#'   \item Report generation capabilities
+#'   \item Model performance evaluation across different strategies and metrics
+#' }
+#' 
+#' The package is designed to work seamlessly with the StepReg package, providing an 
+#' intuitive graphical interface for users who prefer web-based analysis tools.
+#'
+#' @author
+#' \strong{Maintainer:} Junhui Li \email{junhui.li11@umassmed.edu} (\href{https://orcid.org/0000-0003-3973-1700}{ORCID})
+#' 
+#' Authors:
+#' \itemize{
+#'   \item Junhui Li \email{junhui.li11@umassmed.edu}
+#'   \item Kai Hu \email{kai.hu@umassmed.edu}
+#'   \item Xiaohuan Lu
+#'   \item Sushmita N Nayak
+#'   \item Cesar Bautista Sotelo
+#'   \item Michael A Lodato
+#'   \item Wenxin Liu
+#'   \item Lihua Julie Zhu
+#' }
+#'
+#' @seealso
+#' Useful links:
+#' \itemize{
+#'   \item \url{https://github.com/JunhuiLi1017/StepReg}
+#'   \item \url{https://CRAN.R-project.org/package=StepReg}
+#'   \item Report bugs at \url{https://github.com/JunhuiLi1017/StepReg/issues}
+#' }
+#'
+#' @docType package
+#' @name StepRegShiny-package
+"_PACKAGE"

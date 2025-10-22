@@ -1,0 +1,43 @@
+Package: StepRegShiny
+Version: 1.6.1
+Title: Shiny Application for StepReg Package
+Authors@R: c(
+    person("Junhui", "Li", , "junhui.li11@umassmed.edu", role = c("cre"),
+           comment = c(ORCID = "0000-0003-3973-1700")),
+    person("Junhui", "Li", , "junhui.li11@umassmed.edu", role = c("aut")),
+    person("Kai", "Hu", , "kai.hu@umassmed.edu", role = c("aut")),
+    person("Xiaohuan", "Lu", , role = c("aut")),
+    person("Sushmita", "N Nayak", , role = c("ctb")),
+    person("Cesar", "Bautista Sotelo", , role = c("ctb")),
+    person("Michael", "A Lodato", , role = c("ctb")),
+    person("Wenxin", "Liu", , role = c("aut")),
+    person("Lihua", "Julie Zhu", , role = c("aut"))
+  )
+Date: 2025-01-27
+Description: A Shiny application package that provides an interactive web interface for the StepReg package. This package contains the Shiny application components that were previously part of the main StepReg package, allowing for better separation of concerns and independent development of the web interface.
+License: MIT + file LICENSE
+BugReports: https://github.com/JunhuiLi1017/StepReg/issues
+VignetteBuilder: knitr
+Suggests:
+    knitr,
+    testthat,
+    BiocStyle
+Imports:
+    StepReg,
+    shiny,
+    DT,
+    shinythemes,
+    shinycssloaders,
+    dplyr,
+    ggplot2,
+    stringr,
+    flextable,
+    cowplot,
+    ggcorrplot,
+    tidyr,
+    summarytools,
+    rmarkdown
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+NeedsCompilation: no
+Repository: CRAN

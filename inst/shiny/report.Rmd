@@ -1,0 +1,61 @@
+---
+title: "StepReg report"
+output: html_document
+date: today
+params:
+  modelParameters: NA
+  modelVariables: NA
+  modelSelection: NA
+  selectionPlot: NA
+  modelPerformance: NA
+  relValue: NA
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+library(ggplot2)
+library(stringr)
+library(flextable)
+```
+
+## {.tabset}
+
+### Results
+
+**Results of Variable Selection:**
+
+**Table 1: Detailed Model Selection Results**
+```{r comment = NA}
+params$modelSelection
+strategies <- length(params$modelSelection)
+nmetric <- length(params$modelSelection[[1]])
+```
+
+### Parameters and Configuration
+
+**Table 2: Model Parameters and Configuration**
+```{r comment = NA}
+qflextable(params$modelParameters)
+```
+
+**Table 3: Variable Selection Summary**
+```{r comment = NA}
+qflextable(params$modelVariables)
+```
+
+### Visualization
+
+**Visualization of Variable Selection:**
+```{r comment = NA, warning=FALSE, fig.width = 10, fig.height = 6 * nmetric}
+for(i in names(params$selectionPlot)) {
+  print(i)
+  print(plot_grid(plotlist = c( rev(params$selectionPlot[[i]])), ncol = 1, rel_heights = c(1, as.numeric(params$relValue))))
+}
+```
+
+### Model Performance
+
+**Table 4: Model Performance Evaluation Results Across All Combinations of Strategy and Metric**
+```{r comment = NA}
+qflextable(params$modelPerformance)
+```
