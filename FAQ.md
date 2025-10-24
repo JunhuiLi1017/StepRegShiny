@@ -28,8 +28,6 @@ install.packages("StepRegShiny")
 devtools::install_github("JunhuiLi1017/StepRegShiny")
 ```
 
-
-
 **Red Hat/CentOS/Fedora:**
 ```bash
 sudo yum install cairo-devel libwebp-devel ImageMagick-c++-devel ImageMagick-devel
