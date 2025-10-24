@@ -53,4 +53,4 @@ MIT + file LICENSE
 - [GitHub Repository](https://github.com/JunhuiLi1017/StepRegShiny)
 - [CRAN Package Page](https://CRAN.R-project.org/package=StepRegShiny)
 - [Report Issues](https://github.com/JunhuiLi1017/StepRegShiny/issues)
-- [FAQ](https://github.com/JunhuiLi1017/StepRegShiny/FAQ.md)
+- [FAQ](https://github.com/JunhuiLi1017/StepRegShiny/blob/main/FAQ.md)
