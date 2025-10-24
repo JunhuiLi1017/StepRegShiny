@@ -1,0 +1,57 @@
+---
+title: "StepReg: Stepwise Regression Analysis"
+author:
+- name: Junhui Li
+  affiliation: 
+  - University of Massachusset Chan Medical School, Worcester, USA
+- name: Kai Hu
+  affiliation: University of Massachusset Chan Medical School, Worcester, USA
+- name: Xiaohuan Lu
+  affiliation: Clark University, Worcester, USA
+- name: Lihua Julie Zhu
+  affiliation: University of Massachusset Chan Medical School, Worcester, USA
+package: StepReg
+bibliography: bibliography.bib
+fontsize: 11pt
+nocite: '@*'
+link-citations: true
+vignette: |
+  %\VignetteIndexEntry{StepReg}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{StepReg, BiocStyle, kableExtra}
+output:
+  BiocStyle::html_document:
+    toc_float: true
+  BiocStyle::pdf_document: default
+abstract: |
+  Stepwise regression is commonly used for model selection, but the absence of a unified tool supporting diverse regression types, selection strategies, and metrics has complicated its effective application. Notably, most existing tools lack built-in robust methods to address issues like invalid statistical inference and overfitting. We present StepReg, an R package designed to streamline stepwise regression analysis while promoting best practices. StepReg is a comprehensive tool that accommodates multiple regression types and incorporates commonly used selection strategies and metrics. It allows users to combine selection strategies and metrics for efficient model selection. The package offers a randomized forward selection option to avoid overfitting and a data-splitting option to adress potential issues with invalid statistical inference. Additionally, it includes functions for visualizing the selection process and exporting results in multiple formats. To ensure accuracy, StepReg was validated against public datasets using SAS, and an interactive Shiny application is included to enhance usability. This vignette provides numerous examples for model development in diverse contexts.
+---
+```{r include=FALSE}
+knitr::opts_chunk$set(comment = NA)
+```
+
+# Interactive app {#shinyapp}
+
+We have developed an interactive Shiny application to simplify model selection tasks for non-programmers. You can access the app through the following URL:
+
+https://junhuili1017.shinyapps.io/StepRegShiny/
+
+You can also access the Shiny app directly from your local machine with the following code:
+
+```{r, eval = FALSE}
+library(StepRegShiny)
+StepRegGUI()
+```
+
+Here is the user interface.
+
+![](src/StepReg_shiny_UI_description_Data.png){width=100%}
+
+![](src/StepReg_shiny_UI_description_Stepwise.png){width=100%}
+
+# Session info
+
+```{r sessionInfo, echo = FALSE}
+sessionInfo()
+```
