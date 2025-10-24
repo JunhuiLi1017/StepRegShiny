@@ -19,10 +19,11 @@ StepRegShiny is a companion package to StepReg that provides a comprehensive web
 
 ```r
 # Install from CRAN (when available)
+pak::install_package("StepRegShiny")
 install.packages("StepRegShiny")
 
 # Or install from GitHub
-devtools::install_github("JunhuiLi1017/StepReg")
+devtools::install_github("JunhuiLi1017/StepRegShiny")
 ```
 
 ## Usage
@@ -36,11 +37,7 @@ StepRegGUI()
 
 ## Dependencies
 
-This package requires the StepReg package to function properly. Make sure you have StepReg installed:
-
-```r
-install.packages("StepReg")
-```
+This package requires the StepReg package to function properly. Make sure you have StepReg installed.
 
 ## Author
 
@@ -53,7 +50,7 @@ MIT + file LICENSE
 
 ## Links
 
-- [GitHub Repository](https://github.com/JunhuiLi1017/StepReg)
-- [CRAN Package Page](https://CRAN.R-project.org/package=StepReg)
-- [Report Issues](https://github.com/JunhuiLi1017/StepReg/issues)
-# StepRegShiny
+- [GitHub Repository](https://github.com/JunhuiLi1017/StepRegShiny)
+- [CRAN Package Page](https://CRAN.R-project.org/package=StepRegShiny)
+- [Report Issues](https://github.com/JunhuiLi1017/StepRegShiny/issues)
+- [FAQ](https://github.com/JunhuiLi1017/StepRegShiny/issues)

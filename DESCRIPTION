@@ -1,6 +1,6 @@
 Package: StepRegShiny
 Version: 1.6.1
-Title: Shiny Application for StepReg Package
+Title: Shiny Application for 'StepReg' Package
 Authors@R: c(
     person("Junhui", "Li", , "junhui.li11@umassmed.edu", role = c("cre"),
            comment = c(ORCID = "0000-0003-3973-1700")),
@@ -13,10 +13,10 @@ Authors@R: c(
     person("Wenxin", "Liu", , role = c("aut")),
     person("Lihua", "Julie Zhu", , role = c("aut"))
   )
-Date: 2025-01-27
-Description: A Shiny application package that provides an interactive web interface for the StepReg package. This package contains the Shiny application components that were previously part of the main StepReg package, allowing for better separation of concerns and independent development of the web interface.
+Date: 2025-10-22
+Description: A Shiny application package that provides an interactive web interface for the 'StepReg' package.
 License: MIT + file LICENSE
-BugReports: https://github.com/JunhuiLi1017/StepReg/issues
+BugReports: https://github.com/JunhuiLi1017/StepRegShiny/issues
 VignetteBuilder: knitr
 Suggests:
     knitr,

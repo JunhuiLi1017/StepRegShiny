@@ -1,6 +1,6 @@
 # StepRegShiny NEWS
 
-## Version 1.0.0 (2025-01-27)
+## Version 1.6.1 (2025-10-22)
 
 ### Initial Release
 

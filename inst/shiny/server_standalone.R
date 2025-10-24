@@ -1,31 +1,50 @@
-source("utils.R")
-
-# Define server logic
+# Server function for StepReg Shiny Application
 server <- function(input, output, session) {
-  # Disable download button upon page load:
-  shinyjs::disable("download")
-  shinyjs::disable("downloadPlot")
-  shinyjs::disable("download_process_plot")
-  
   # Function to read uploaded dataset
   df = reactiveValues(path = NULL)
   
+  # Initialize reactive values for button states
+  button_states <- reactiveValues(
+    download_enabled = FALSE,
+    downloadPlot_enabled = FALSE,
+    download_process_plot_enabled = FALSE
+  )
+  
   observeEvent(input$example_dataset, {
     req(input$example_dataset)
-    # Read the selected example dataset
-    data(creditCard, package = 'StepReg')
-    data(remission, package = "StepReg")
-    data(lung, package = "StepReg")
-    data(mtcars)
-    lung %>%
-      mutate(sex = factor(sex, levels = c(1, 2))) %>% 
-      na.omit() -> lung # get rid of incomplete records
-    
-    df$data <- switch(input$example_dataset,
-                 "mtcars" = mtcars,
-                 "remission" = remission,
-                 "lung" = lung,
-                 "creditCard" = creditCard)
+    # Read the selected example dataset using data() function
+    tryCatch({
+      if (input$example_dataset == "mtcars") {
+        df$data <- get("mtcars", envir = asNamespace("datasets"))
+      } else {
+        # Load data from StepReg package
+        data(list = input$example_dataset, package = "StepReg", envir = environment())
+        dataset_name <- input$example_dataset
+        
+        # Special processing for lung data
+        if (dataset_name == "lung") {
+          lung_data <- get(dataset_name, envir = environment())
+          lung_data <- lung_data %>%
+            mutate(sex = factor(.data$sex, levels = c(1, 2))) %>% 
+            na.omit() # get rid of incomplete records
+          df$data <- lung_data
+        } else {
+          df$data <- get(dataset_name, envir = environment())
+        }
+      }
+    }, error = function(e) {
+      # Fallback to get() method if data() fails
+      if (input$example_dataset == "mtcars") {
+        df$data <- get("mtcars", envir = asNamespace("datasets"))
+      } else {
+        df$data <- get(input$example_dataset, envir = asNamespace("StepReg"))
+        if (input$example_dataset == "lung") {
+          df$data <- df$data %>%
+            mutate(sex = factor(.data$sex, levels = c(1, 2))) %>% 
+            na.omit()
+        }
+      }
+    })
   })
   
   # Function to upload user custom dataset:
@@ -160,19 +179,8 @@ server <- function(input, output, session) {
     })
   })
   
-  observe({
-    if (run_analysis_enabled()) {
-      shinyjs::enable("run_analysis")
-    } else {
-      shinyjs::disable("run_analysis")
-    }
-    
-    if (exploratory_plot_enabled()) {
-      shinyjs::enable("make_plot")
-    } else {
-      shinyjs::disable("make_plot")
-    }
-  })
+  # Button states are now controlled by UI logic instead of shinyjs
+  # This removes the dependency on shinyjs and avoids session issues
   
   rv <- reactiveValues()
   rv$nmetric <- 1
@@ -251,7 +259,7 @@ server <- function(input, output, session) {
     
     tags$div(
       style = "margin-top: 10px; padding: 10px; background-color: #f8f9fa; border-radius: 5px; border-left: 4px solid #3498db;",
-      tags$h6(style = "margin: 0 0 8px 0; color: #2c3e50;", paste0("📝 Formula Examples for ", input$type, " regression:")),
+      tags$h6(style = "margin: 0 0 8px 0; color: #2c3e50;", paste0("Formula Examples for ", input$type, " regression:")),
       tags$ul(
         style = "margin: 0; padding-left: 20px;",
         lapply(examples_list, function(example) {
@@ -308,8 +316,7 @@ server <- function(input, output, session) {
   
   # Perform stepwise regression based on uploaded dataset
   stepwiseModel <- eventReactive(input$run_analysis, {
-    disable("download")
-    disable("download_process_plot")
+    # Button states are now controlled by UI logic instead of shinyjs
     req(df$data)
     
     # Validate formula input
@@ -382,14 +389,13 @@ server <- function(input, output, session) {
     )
 
     if(all(input$strategy %in% 'subset') & all(metric %in% 'SL')) {
-      model_vote <- NULL
+      model_performance <- NULL
     } else {
-      model_vote <- performance(res)
+      model_performance <- performance(res)
     }
-    results <- list(summary_list, process_plot, model_vote,res$argument,res$variable)
+    results <- list(summary_list, process_plot, model_performance,res$argument,res$variable)
     
-    enable("download")
-    enable("download_process_plot")
+    # Button states are now controlled by UI logic instead of shinyjs
     results
   })
 
@@ -432,24 +438,32 @@ server <- function(input, output, session) {
     HTML("<b>Visualization of Variable Selection:\n</b>")
   })
   output$selectionStatText <- renderText({
-    HTML("<b>Statistics of Variable Selection:\n</b>")
+    HTML("<b>Results of Variable Selection:\n</b>")
   })
-  output$modelVoteText <- renderText({
+  
+  output$modelParametersText <- renderText({
+    HTML("<b>Model Parameters and Configuration:\n</b>")
+  })
+  
+  output$modelVariablesText <- renderText({
+    HTML("<b>Variable Selection Summary:\n</b>")
+  })
+  output$modelPerformanceText <- renderText({
     tryCatch({
       req(stepwiseModel())
       # Get the metric from the stepwiseModel results
       metric <- stepwiseModel()[[4]]$metric
       if(all(input$strategy %in% 'subset') & all(metric %in% 'SL')) {
-        HTML("<b>Vote isn't available for selection strategy 'subset':\n</b>")
+        HTML("<b>Model performance evaluation isn't available for selection strategy 'subset':\n</b>")
       } else {
-        HTML("<b>Model Selection by Vote Across All Combinations of Strategy and Metric:\n</b>")
+        HTML("<b>Model Performance Evaluation Across All Combinations of Strategy and Metric:\n</b>")
       }
     }, error = function(e) {
-      HTML("<b>Model Selection by Vote Across All Combinations of Strategy and Metric:\n</b>")
+      HTML("<b>Model Performance Evaluation Across All Combinations of Strategy and Metric:\n</b>")
     })
   })
   
-  output$modelVote <- renderDataTable({ 
+  output$modelPerformance <- renderDT({ 
     tryCatch({
       req(stepwiseModel())
       # Get the metric from the stepwiseModel results
@@ -458,13 +472,25 @@ server <- function(input, output, session) {
         DT::datatable(stepwiseModel()[[3]], options = list(scrollX = TRUE))
       }
     }, error = function(e) {
-      DT::datatable(data.frame(Message = "No voting results available"), options = list(scrollX = TRUE))
+      DT::datatable(data.frame(Message = "No model performance results available"), options = list(scrollX = TRUE))
     })
   })
   # Output Data
-  output$tbl <- renderDataTable({
+  output$tbl <- renderDT({
     req(df$data)
     DT::datatable(df$data, options = list(scrollX = TRUE))
+  })
+  
+  # Output Model Parameters
+  output$modelParameters <- renderDT({
+    req(stepwiseModel())
+    DT::datatable(stepwiseModel()[[4]], options = list(scrollX = TRUE))
+  })
+  
+  # Output Model Variables
+  output$modelVariables <- renderDT({
+    req(stepwiseModel())
+    DT::datatable(stepwiseModel()[[5]], options = list(scrollX = TRUE))
   })
 
   # Render the appropriate summary based on the selected type
@@ -482,7 +508,7 @@ server <- function(input, output, session) {
   })
   
   plot_data <- eventReactive(input$make_plot, {
-    disable("downloadPlot")
+    # Button states are now controlled by UI logic instead of shinyjs
     req(input$plot_type, input$var_plot)
     plot_type <- createPlot(input$plot_type, input$var_plot, df$data)
     # if (input$plot_type == "Pairs plot") {
@@ -491,7 +517,7 @@ server <- function(input, output, session) {
       #grid.arrange(grobs = plot_type)
       plot_result <- plot_grid(plotlist = plot_type)
     # }
-    enable("downloadPlot")
+    # Button states are now controlled by UI logic instead of shinyjs
     return(plot_result)
   })
   
@@ -501,7 +527,7 @@ server <- function(input, output, session) {
   
   # Render the error message in the main panel
   output$error_message <- renderText({
-    error_message()  # Display the stored error message
+    "No errors"  # Display the stored error message
   })
   
   output$downloadPlot <- downloadHandler(
@@ -529,7 +555,7 @@ server <- function(input, output, session) {
                      modelVariables = stepwiseModel()[[5]],
                      modelSelection = stepwiseModel()[[1]], 
                      selectionPlot = stepwiseModel()[[2]],
-                     modelVote = stepwiseModel()[[3]],
+                     modelPerformance = stepwiseModel()[[3]],
                      relValue = input$relative_height)
       
       rmarkdown::render(tempReport, 

@@ -1,23 +1,21 @@
-
-require("shiny") || stop("unable to load shiny")
-require("shinyjs") || stop("unable to load shinyjs")
-require("StepReg") || stop("unable to load StepReg")
-require("survival") || stop("unable to load survival")
-require("MASS") || stop("unable to load MASS")
-require("cowplot") || stop("unable to load cowplot")
-require("stringr") || stop("unable to load stringr")
-require("DT") || stop("unable to load DT")
-require("shinythemes") || stop("unable to load shinythemes")
-require("shinycssloaders") || stop("unable to laod shinycssloaders")
-require("ggplot2") || stop("unable to load ggplot2")
-require("dplyr") || stop("unable to load dplyr")
-require("summarytools") || stop("unable to load summarytools")
-require("ggcorrplot") || stop("unable to load ggcorrplot")
-require("tidyr") || stop("unable to load tidyr")
-#require("GGally") || stop("unable to load GGally")
-require("ggrepel") || stop("unable to load ggrepel")
-require("rmarkdown") || stop("unable to load rmarkdown")
-
+#' Create Plot Function
+#'
+#' Creates various types of plots for data visualization in the StepReg Shiny application.
+#'
+#' @param plot_type_value Character string specifying the type of plot to create.
+#'   Options include: "Bar plot", "Box plot", "Correlation plot", "Density plot",
+#'   "Dot plot", "Histogram", "QQ plot", "Scatter and Line plot".
+#' @param var_plot_value Character vector of variable names to plot.
+#' @param data_value Data frame containing the data to plot.
+#'
+#' @return A list of ggplot objects or a single ggplot object depending on the plot type.
+#'
+#' @importFrom ggplot2 ggplot geom_bar geom_boxplot geom_density geom_dotplot geom_histogram geom_point stat_qq stat_qq_line stat_smooth theme_bw aes labs scale_y_continuous facet_wrap
+#' @importFrom dplyr %>% select all_of .data
+#' @importFrom tidyr gather
+#' @importFrom ggcorrplot ggcorrplot
+#' @importFrom stats cor
+#'
 createPlot <- function(plot_type_value, var_plot_value, data_value) {
   plot_type <- switch(
     plot_type_value,
@@ -88,13 +86,15 @@ createPlot <- function(plot_type_value, var_plot_value, data_value) {
     "Scatter and Line plot" = {
       # Create a scatter plot for each selected variable
       lapply(var_plot_value, function(var) {
-        data_value %>% 
+        plot_data <- data_value %>% 
           select(all_of(var_plot_value)) %>% 
-          gather(-{{var}}, key = "var", value = "value") %>%
-          ggplot(aes(x = value, y = .data[[var]])) +
+          gather(-{{var}}, key = "var", value = "var_value")
+        
+        plot_data %>%
+          ggplot(aes(x = .data$var_value, y = .data[[var]])) +
           geom_point() +
           stat_smooth() +
-          facet_wrap(~ var, scales = "free") +
+          facet_wrap(~ .data$var, scales = "free") +
           theme_bw()
       })
     }
@@ -107,30 +107,3 @@ createPlot <- function(plot_type_value, var_plot_value, data_value) {
   )
   return(plot_type)
 }
-
-# prepData <- function(example_dataset, upload_file, header_value, sep_value, quote_value){
-#   if (example_dataset != " ") {
-#     # Read the selected example dataset
-#     data(CreditCard, package = 'AER')
-#     data(remission,package="StepReg")
-#     survival::lung %>%
-#       mutate(sex = factor(sex, levels = c(1,2))) %>% # make sex as factor
-#       mutate(status = ifelse(status == 1, 0, 1)) %>% # recode status: 0 means cencored, 1 means dead
-#       na.omit() -> lung# get rid of incomplete records
-#     
-#     
-#     df <- switch(example_dataset,
-#                  "base::mtcars" = mtcars,
-#                  "StepReg::remission" = remission,
-#                  "survival::lung" = lung,
-#                  "AER::CreditCard" = CreditCard)
-#   }
-#   if (!is.null(upload_file)) {
-#     # Read the uploaded file
-#     df <- read.table(upload_file$datapath,
-#                      header = header_value,
-#                      sep = sep_value,
-#                      quote = quote_value)
-#   }
-#   return(df)
-# }
