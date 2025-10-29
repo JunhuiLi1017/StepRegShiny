@@ -1,6 +1,6 @@
 Package: StepRegShiny
 Version: 1.6.1
-Title: Shiny Application for 'StepReg' Package
+Title: 'shiny' Application for 'StepReg'
 Authors@R: c(
     person("Junhui", "Li", , "junhui.li11@umassmed.edu", role = c("cre"),
            comment = c(ORCID = "0000-0003-3973-1700")),
@@ -14,7 +14,7 @@ Authors@R: c(
     person("Lihua", "Julie Zhu", , role = c("aut"))
   )
 Date: 2025-10-22
-Description: A Shiny application package that provides an interactive web interface for the 'StepReg' package.
+Description: A web-based 'shiny' interface for the 'StepReg' package enables stepwise regression analysis across linear, generalized linear (including logistic, Poisson, Gamma, and negative binomial), and Cox models. It supports forward, backward, bidirectional, and best-subset selection under a range of criteria. The package also supports stepwise regression to multivariate settings, allowing multiple dependent variables to be modeled simultaneously. Users can explore and combine multiple selection strategies and criteria to optimize model selection. For enhanced robustness, the package offers optional randomized forward selection to reduce overfitting, and a data-splitting workflow for more reliable post-selection inference. Additional features include logging and visualization of the selection process, as well as the ability to export results in common formats.
 License: MIT + file LICENSE
 BugReports: https://github.com/JunhuiLi1017/StepRegShiny/issues
 VignetteBuilder: knitr

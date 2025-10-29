@@ -1,6 +1,6 @@
-#' StepRegShiny: Shiny Application for StepReg Package
+#' StepRegShiny: shiny Application for StepReg Package
 #'
-#' A Shiny application package that provides an interactive web interface for the StepReg package. 
+#' A shiny application package that provides an interactive web interface for the StepReg package. 
 #' This package contains the Shiny application components that were previously part of the main 
 #' StepReg package, allowing for better separation of concerns and independent development of 
 #' the web interface.

@@ -41,9 +41,9 @@
 #' @return Launches the Shiny application in the user's default web browser.
 #'
 #' @examples
-#' \dontrun{
-#' # Launch the StepReg GUI
-#' StepRegGUI()
+#' 
+#' if(interactive()){
+#'   StepRegGUI()
 #' }
 #'
 #' @seealso \code{\link[StepReg]{stepwise}} for the core stepwise regression function
