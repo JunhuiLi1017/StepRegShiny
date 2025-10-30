@@ -50,9 +50,9 @@ The application consists of two main steps:
 }
 }
 \examples{
-\dontrun{
-# Launch the StepReg GUI
-StepRegGUI()
+
+if(interactive()){
+  StepRegGUI()
 }
 
 }

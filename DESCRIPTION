@@ -1,6 +1,6 @@
 Package: StepRegShiny
 Version: 1.6.1
-Title: 'shiny' Application for 'StepReg'
+Title: Graphical User Interface for 'StepReg'
 Authors@R: c(
     person("Junhui", "Li", , "junhui.li11@umassmed.edu", role = c("cre"),
            comment = c(ORCID = "0000-0003-3973-1700")),
@@ -21,7 +21,8 @@ VignetteBuilder: knitr
 Suggests:
     knitr,
     testthat,
-    BiocStyle
+    BiocStyle,
+    survival
 Imports:
     StepReg,
     shiny,

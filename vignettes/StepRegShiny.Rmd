@@ -1,5 +1,5 @@
 ---
-title: "StepReg: Stepwise Regression Analysis"
+title: "StepRegShiny: A shiny Application for StepReg"
 author:
 - name: Junhui Li
   affiliation: 
@@ -10,16 +10,15 @@ author:
   affiliation: Clark University, Worcester, USA
 - name: Lihua Julie Zhu
   affiliation: University of Massachusset Chan Medical School, Worcester, USA
-package: StepReg
-bibliography: bibliography.bib
+package: StepRegShiny
 fontsize: 11pt
 nocite: '@*'
 link-citations: true
 vignette: |
-  %\VignetteIndexEntry{StepReg}
+  %\VignetteIndexEntry{StepRegShiny}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  %\VignetteDepends{StepReg, BiocStyle, kableExtra}
+  %\VignetteDepends{StepRegShiny, BiocStyle}
 output:
   BiocStyle::html_document:
     toc_float: true
