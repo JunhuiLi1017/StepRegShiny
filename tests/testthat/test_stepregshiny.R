@@ -1,7 +1,7 @@
 library(testthat)
 library(StepReg)
-library(StepRegShiny)
 library(survival)
+library(StepRegShiny)
 
 test_that("StepRegGUI function exists", {
   expect_true(exists("StepRegGUI"))
@@ -25,7 +25,8 @@ test_that("test_stepregshiny.R failed", {
   for (mod in names(res_v1_5_0)){
     type <- unlist(strsplit(mod,"_"))[1]
     if(mod=="cox_model1"){
-      lung <- na.omit(survival::lung)
+      data(lung, package = "StepReg")
+      lung <- na.omit(lung)
       mydata <- lung
     }else if(mod %in% c("linear_model1","linear_model2")){
       data(mtcars)
